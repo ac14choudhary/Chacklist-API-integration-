@@ -1,12 +1,64 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, View, Text} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
 export default function Update({navigation}) {
   return (
-    <View>
-      <Text>UPDATE SCREEN</Text>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Product"
+        placeholderTextColor="#dddddd"
+        keyboardType="default"></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Quantity"
+        placeholderTextColor="#dddddd"
+        keyboardType="number-pad"></TextInput>
+
+      <TouchableOpacity
+        style={styles.updateButton}
+        onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.updateButtonText}>Update to List</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  input: {
+    marginTop: '5%',
+    paddingLeft: 20,
+    fontSize: 20,
+    width: '80%',
+    height: 60,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    alignSelf: 'center',
+  },
+  updateButton: {
+    marginTop: '8%',
+    width: '60%',
+    height: 60,
+    borderRadius: 10,
+    backgroundColor: '#FFCA28',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  updateButtonText: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'white',
+  },
+});

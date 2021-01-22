@@ -8,23 +8,53 @@ import {
   TouchableOpacity,
   button,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
 export default function Home({navigation}) {
   return (
-    <View>
+    <ScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity
-        style={styles.nextButton}
+        style={styles.FABUPDATE}
         onPress={() => navigation.navigate('Update')}>
-        <Text> Go to Update </Text>
+        <Icon name="pencil" style={styles.FABIcon} />
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.nextButton}
+        style={styles.FABADD}
         onPress={() => navigation.navigate('Add')}>
-        <Text> Go to Add</Text>
+        <Icon name="plus" style={styles.FABIcon} />
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  FABADD: {
+    position: 'absolute',
+    height: 80,
+    width: 80,
+    borderRadius: 100,
+    backgroundColor: '#ff6666',
+    justifyContent: 'center',
+    bottom: 20,
+    right: 20,
+  },
+  FABIcon: {
+    color: 'black',
+    alignSelf: 'center',
+    fontSize: 30,
+  },
+  FABUPDATE: {
+    position: 'absolute',
+    height: 80,
+    width: 80,
+    borderRadius: 100,
+    backgroundColor: '#FFCA28',
+    justifyContent: 'center',
+    bottom: 120,
+    right: 20,
+  },
+});

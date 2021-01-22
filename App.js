@@ -9,7 +9,7 @@ import Update from './Screens/Update';
 
 const Stack = createStackNavigator();
 
-export default function App({navigation}) {
+export default function App({}) {
   return (
     <NavigationContainer>
       <Stack.Navigator>
