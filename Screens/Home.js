@@ -1,10 +1,28 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, View, Text} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  button,
+} from 'react-native';
 
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <View>
-      <Text>HOME SCREEN</Text>
+      <TouchableOpacity
+        style={styles.nextButton}
+        onPress={() => navigation.navigate('Update')}>
+        <Text> Go to Update </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.nextButton}
+        onPress={() => navigation.navigate('Add')}>
+        <Text> Go to Add</Text>
+      </TouchableOpacity>
     </View>
   );
 }

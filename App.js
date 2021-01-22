@@ -7,27 +7,15 @@ import Home from './Screens/Home';
 import Add from './Screens/Add';
 import Update from './Screens/Update';
 
-function homeScreen() {
-  return <Home />;
-}
-
-function addScreen() {
-  return <Add />;
-}
-
-function updateScreen() {
-  return <Update />;
-}
-
 const Stack = createStackNavigator();
 
-export default function App() {
+export default function App({navigation}) {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={homeScreen} />
-        <Stack.Screen name="Add" component={addScreen} />
-        <Stack.Screen name="Update" component={updateScreen} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Add" component={Add} />
+        <Stack.Screen name="Update" component={Update} />
       </Stack.Navigator>
     </NavigationContainer>
   );
