@@ -8,7 +8,6 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {color} from 'react-native-reanimated';
 
 export default function Add({navigation}) {
   return (

@@ -8,7 +8,6 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
 export default function Update({navigation}) {
   return (

@@ -31,6 +31,7 @@ export default function Home({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   FABADD: {
     position: 'absolute',
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     bottom: 20,
     right: 20,
+    elevation: 10,
   },
   FABIcon: {
     color: 'black',
@@ -56,5 +58,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     bottom: 120,
     right: 20,
+    elevation: 10,
   },
 });
