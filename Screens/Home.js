@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,8 +9,26 @@ import {
   button,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import axios from 'axios';
 
 export default function Home({navigation}) {
+  const [userData, setUserData] = useState();
+
+  const fetchDetails = async () => {
+    try {
+      const dataSet = await axios.get(
+        'https://app-api-geny.herokuapp.com/products/all/2',
+      );
+      setUserData(dataSet.data);
+      console.log(dataSet.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchDetails();
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity
