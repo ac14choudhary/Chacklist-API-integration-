@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
   Text,
   TouchableOpacity,
-  button,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import axios from 'axios';
@@ -31,11 +29,23 @@ export default function Home({navigation}) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <TouchableOpacity
-        style={styles.FABUPDATE}
-        onPress={() => navigation.navigate('Update')}>
-        <Icon name="pencil" style={styles.FABIcon} />
-      </TouchableOpacity>
+      <View style={styles.listElements}>
+        <View style={styles.Element1}>
+          <Text style={styles.Text1}>Paracitamol</Text>
+
+          <Text style={styles.Text2}>quantity : 20</Text>
+        </View>
+        <View style={styles.Element2}>
+          <TouchableOpacity onPress={() => navigation.navigate('Update')}>
+            <Icon name="pencil" style={styles.UpdateIcon} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.Element3}>
+          <TouchableOpacity onPress={() => navigation.navigate('Update')}>
+            <Icon name="delete" style={styles.DeleteIcon} />
+          </TouchableOpacity>
+        </View>
+      </View>
 
       <TouchableOpacity
         style={styles.FABADD}
@@ -78,4 +88,44 @@ const styles = StyleSheet.create({
     right: 20,
     elevation: 10,
   },
+  listElements: {
+    width: '85%',
+    marginTop: 25,
+    height: 75,
+    backgroundColor: '#F2F2F2',
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignSelf: 'center',
+  },
+  Element1: {flex: 3, justifyContent: 'center'},
+  Text1: {
+    fontSize: 25,
+    alignSelf: 'center',
+  },
+  Element2: {flex: 1, justifyContent: 'center'},
+  UpdateIcon: {
+    color: '#FFCA27',
+    alignSelf: 'center',
+    fontSize: 30,
+  },
+  Element3: {flex: 1, justifyContent: 'center'},
+  DeleteIcon: {
+    color: '#ff6666',
+    alignSelf: 'center',
+    fontSize: 30,
+  },
+  Text1: {
+    fontSize: 22,
+    alignSelf: 'center',
+  },
+  Text2: {
+    fontSize: 14,
+    alignSelf: 'center',
+  },
 });
+
+// <TouchableOpacity
+// style={styles.FABUPDATE}
+// onPress={() => navigation.navigate('Update')}>
+// <Icon name="pencil" style={styles.FABIcon} />
+// </TouchableOpacity>
