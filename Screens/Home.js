@@ -27,6 +27,8 @@ export default function Home({navigation}) {
     fetchDetails();
   }, []);
 
+  const deleteDetail = async () => {};
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.listElements}>
@@ -41,7 +43,7 @@ export default function Home({navigation}) {
           </TouchableOpacity>
         </View>
         <View style={styles.Element3}>
-          <TouchableOpacity onPress={() => navigation.navigate('Update')}>
+          <TouchableOpacity onPress={() => {}}>
             <Icon name="delete" style={styles.DeleteIcon} />
           </TouchableOpacity>
         </View>
@@ -77,17 +79,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 30,
   },
-  FABUPDATE: {
-    position: 'absolute',
-    height: 80,
-    width: 80,
-    borderRadius: 100,
-    backgroundColor: '#FFCA28',
-    justifyContent: 'center',
-    bottom: 120,
-    right: 20,
-    elevation: 10,
-  },
+
   listElements: {
     width: '85%',
     marginTop: 25,
@@ -97,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
   },
-  Element1: {flex: 3, justifyContent: 'center'},
+  Element1: {flex: 4, justifyContent: 'center'},
   Text1: {
     fontSize: 25,
     alignSelf: 'center',
@@ -121,11 +113,6 @@ const styles = StyleSheet.create({
   Text2: {
     fontSize: 14,
     alignSelf: 'center',
+    color: '#888888',
   },
 });
-
-// <TouchableOpacity
-// style={styles.FABUPDATE}
-// onPress={() => navigation.navigate('Update')}>
-// <Icon name="pencil" style={styles.FABIcon} />
-// </TouchableOpacity>

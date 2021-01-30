@@ -8,24 +8,62 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import snackbar from 'react-native-snackbar';
+import Home from './Home';
+import axios from 'axios';
 
 export default function Add({navigation}) {
+  const [name, setName] = useState('');
+  const [quantity, setQuantity] = useState('');
+
+  const sendToList = async () => {
+    try {
+      if (!name || !quantity) {
+        snackbar.show({
+          backgroundColor: '#ff6666',
+          textColor: '#ffffff',
+          duration: snackbar.LENGTH_SHORT,
+          text: 'please enter both the values',
+        });
+      } else {
+        axios.post('https://app-api-geny.herokuapp.com/products/add', {
+          name: {setName},
+          quantity: {setQuantity},
+          group: 2,
+        });
+
+        snackbar.show({
+          backgroundColor: '#8BC34A',
+          textColor: '#ffffff',
+          duration: snackbar.LENGTH_SHORT,
+          text: 'Item added to the list',
+        });
+
+        navigation.navigate(Home);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="Enter Product"
         placeholderTextColor="#dddddd"
-        keyboardType="default"></TextInput>
+        keyboardType="default"
+        value={name}
+        onChangeText={(text) => setName(text)}></TextInput>
       <TextInput
         style={styles.input}
         placeholder="Enter Quantity"
         placeholderTextColor="#dddddd"
-        keyboardType="number-pad"></TextInput>
+        keyboardType="number-pad"
+        value={quantity}
+        onChangeText={(text) => setQuantity(text)}></TextInput>
 
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => navigation.navigate('Home')}>
+      <TouchableOpacity style={styles.addButton} onPress={sendToList}>
         <Text style={styles.addButtonText}>Add to List</Text>
       </TouchableOpacity>
     </View>
