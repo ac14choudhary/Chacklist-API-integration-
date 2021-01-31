@@ -22,23 +22,21 @@ export default function Add({navigation}) {
         snackbar.show({
           backgroundColor: '#ff6666',
           textColor: '#ffffff',
-          duration: snackbar.LENGTH_SHORT,
+          duration: snackbar.LENGTH_LONG,
           text: 'please enter both the values',
         });
       } else {
-        axios.post('https://app-api-geny.herokuapp.com/products/add', {
-          name: {setName},
-          quantity: {setQuantity},
-          group: 2,
-        });
-
         snackbar.show({
           backgroundColor: '#8BC34A',
           textColor: '#ffffff',
           duration: snackbar.LENGTH_SHORT,
           text: 'Item added to the list',
         });
-
+        axios.post('https://app-api-geny.herokuapp.com/products/add', {
+          name: name,
+          quantity: quantity,
+          group: 2,
+        });
         navigation.navigate(Home);
       }
     } catch (error) {
@@ -63,7 +61,11 @@ export default function Add({navigation}) {
         value={quantity}
         onChangeText={(text) => setQuantity(text)}></TextInput>
 
-      <TouchableOpacity style={styles.addButton} onPress={sendToList}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => {
+          sendToList();
+        }}>
         <Text style={styles.addButtonText}>Add to List</Text>
       </TouchableOpacity>
     </View>

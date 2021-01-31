@@ -10,15 +10,18 @@ import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import axios from 'axios';
 
 export default function Home({navigation}) {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState([]);
 
   const fetchDetails = async () => {
     try {
-      const dataSet = await axios.get(
+      let dataSet = await axios.get(
         'https://app-api-geny.herokuapp.com/products/all/2',
       );
       setUserData(dataSet.data);
-      console.log(dataSet.data);
+
+      setTimeout(() => {
+        console.log(userData);
+      }, 5000);
     } catch (error) {
       console.log(error);
     }
