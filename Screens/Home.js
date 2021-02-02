@@ -14,31 +14,48 @@ export default function Home({navigation}) {
 
   const fetchDetails = async () => {
     try {
-      let dataSet = await axios.get(
+      const dataSet = await axios.get(
         'https://app-api-geny.herokuapp.com/products/all/2',
       );
       setUserData(dataSet.data);
-
-      setTimeout(() => {
-        console.log(userData);
-      }, 5000);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    fetchDetails();
+    navigation.addListener('focus', () => {
+      fetchDetails();
+    });
   }, []);
 
-  const deleteDetail = async () => {};
+  const deleteDetail = async (neww) => {
+    console.log(neww);
+    await axios
+      .delete('https://app-api-geny.herokuapp.com/products/delete', {
+        data: {
+          uuid: neww,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  const updateDetail = async () => {};
+  const updateDetail = async () => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View>
         {userData.map((idee) => (
-          <View key={idee.id}>
+          <View key={idee._id}>
             <View style={styles.listElements}>
               <View style={styles.Element1}>
                 <Text style={styles.Text1}>{idee.name}</Text>
@@ -46,12 +63,22 @@ export default function Home({navigation}) {
                 <Text style={styles.Text2}>quantity : {idee.quantity}</Text>
               </View>
               <View style={styles.Element2}>
-                <TouchableOpacity onPress={() => navigation.navigate('Update')}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('Update', {
+                      no: idee.uuid,
+                      name: idee.name,
+                      quantity: idee.quantity,
+                    })
+                  }>
                   <Icon name="pencil" style={styles.UpdateIcon} />
                 </TouchableOpacity>
               </View>
               <View style={styles.Element3}>
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity
+                  onPress={() => {
+                    deleteDetail(idee.uuid);
+                  }}>
                   <Icon name="delete" style={styles.DeleteIcon} />
                 </TouchableOpacity>
               </View>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,12 +9,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default function Update({navigation}) {
+export default function Update({navigation, route}) {
+  const [update, setUdate] = useState(route.params);
+
   return (
     <View style={styles.container}>
+      {console.log(update)}
       <TextInput
         style={styles.input}
-        placeholder="Enter Product"
+        value={update.name}
+        editable={false}
+        color="#242424"
         placeholderTextColor="#dddddd"
         keyboardType="default"></TextInput>
       <TextInput
