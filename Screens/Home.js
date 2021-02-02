@@ -32,24 +32,32 @@ export default function Home({navigation}) {
 
   const deleteDetail = async () => {};
 
+  const updateDetail = async () => {};
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.listElements}>
-        <View style={styles.Element1}>
-          <Text style={styles.Text1}>Paracitamol</Text>
+      <View>
+        {userData.map((idee) => (
+          <View key={idee.id}>
+            <View style={styles.listElements}>
+              <View style={styles.Element1}>
+                <Text style={styles.Text1}>{idee.name}</Text>
 
-          <Text style={styles.Text2}>quantity : 20</Text>
-        </View>
-        <View style={styles.Element2}>
-          <TouchableOpacity onPress={() => navigation.navigate('Update')}>
-            <Icon name="pencil" style={styles.UpdateIcon} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.Element3}>
-          <TouchableOpacity onPress={() => {}}>
-            <Icon name="delete" style={styles.DeleteIcon} />
-          </TouchableOpacity>
-        </View>
+                <Text style={styles.Text2}>quantity : {idee.quantity}</Text>
+              </View>
+              <View style={styles.Element2}>
+                <TouchableOpacity onPress={() => navigation.navigate('Update')}>
+                  <Icon name="pencil" style={styles.UpdateIcon} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.Element3}>
+                <TouchableOpacity onPress={() => {}}>
+                  <Icon name="delete" style={styles.DeleteIcon} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        ))}
       </View>
 
       <TouchableOpacity
@@ -62,11 +70,9 @@ export default function Home({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
+  container: {flex: 1, backgroundColor: 'white'},
   FABADD: {
+    flex: 1,
     position: 'absolute',
     height: 80,
     width: 80,
@@ -85,7 +91,7 @@ const styles = StyleSheet.create({
 
   listElements: {
     width: '85%',
-    marginTop: 25,
+    marginVertical: 10,
     height: 75,
     backgroundColor: '#F2F2F2',
     borderRadius: 10,
@@ -112,6 +118,7 @@ const styles = StyleSheet.create({
   Text1: {
     fontSize: 22,
     alignSelf: 'center',
+    color: '#242424',
   },
   Text2: {
     fontSize: 14,
@@ -119,3 +126,21 @@ const styles = StyleSheet.create({
     color: '#888888',
   },
 });
+
+// <View style={styles.listElements}>
+// <View style={styles.Element1}>
+//   <Text style={styles.Text1}>{userData[0].name}</Text>
+
+//   <Text style={styles.Text2}>{userData[0].quantity}</Text>
+// </View>
+// <View style={styles.Element2}>
+//   <TouchableOpacity onPress={() => navigation.navigate('Update')}>
+//     <Icon name="pencil" style={styles.UpdateIcon} />
+//   </TouchableOpacity>
+// </View>
+// <View style={styles.Element3}>
+//   <TouchableOpacity onPress={() => {}}>
+//     <Icon name="delete" style={styles.DeleteIcon} />
+//   </TouchableOpacity>
+// </View>
+// </View>
