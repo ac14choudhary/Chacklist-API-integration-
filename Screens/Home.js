@@ -5,9 +5,11 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import axios from 'axios';
+import snackbar from 'react-native-snackbar';
 
 export default function Home({navigation}) {
   const [userData, setUserData] = useState([]);
@@ -38,10 +40,18 @@ export default function Home({navigation}) {
       })
       .then((res) => {
         console.log(res.data);
+        navigation.navigate(Home);
       })
       .catch((error) => {
         console.log(error);
       });
+    snackbar.show({
+      backgroundColor: '#ff6666',
+      textColor: '#ffffff',
+      duration: snackbar.LENGTH_LONG,
+      text: 'Item Deleted',
+    });
+    navigation.navigate(Home);
   };
 
   const updateDetail = async () => {
@@ -55,7 +65,7 @@ export default function Home({navigation}) {
     <ScrollView contentContainerStyle={styles.container}>
       <View>
         {userData.map((idee) => (
-          <View key={idee._id}>
+          <View key={idee.uuid}>
             <View style={styles.listElements}>
               <View style={styles.Element1}>
                 <Text style={styles.Text1}>{idee.name}</Text>
@@ -66,7 +76,6 @@ export default function Home({navigation}) {
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate('Update', {
-                      no: idee.uuid,
                       name: idee.name,
                       quantity: idee.quantity,
                     })
@@ -77,7 +86,18 @@ export default function Home({navigation}) {
               <View style={styles.Element3}>
                 <TouchableOpacity
                   onPress={() => {
-                    deleteDetail(idee.uuid);
+                    Alert.alert(
+                      'Delete',
+                      'Are you sre you want to delete it ?',
+                      [
+                        {
+                          text: 'Cancel',
+                          onPress: () => {},
+                          style: 'cancel',
+                        },
+                        {text: 'OK', onPress: () => deleteDetail(idee.uuid)},
+                      ],
+                    );
                   }}>
                   <Icon name="delete" style={styles.DeleteIcon} />
                 </TouchableOpacity>
@@ -118,7 +138,7 @@ const styles = StyleSheet.create({
 
   listElements: {
     width: '85%',
-    marginVertical: 10,
+    marginTop: 20,
     height: 75,
     backgroundColor: '#F2F2F2',
     borderRadius: 10,
@@ -153,21 +173,3 @@ const styles = StyleSheet.create({
     color: '#888888',
   },
 });
-
-// <View style={styles.listElements}>
-// <View style={styles.Element1}>
-//   <Text style={styles.Text1}>{userData[0].name}</Text>
-
-//   <Text style={styles.Text2}>{userData[0].quantity}</Text>
-// </View>
-// <View style={styles.Element2}>
-//   <TouchableOpacity onPress={() => navigation.navigate('Update')}>
-//     <Icon name="pencil" style={styles.UpdateIcon} />
-//   </TouchableOpacity>
-// </View>
-// <View style={styles.Element3}>
-//   <TouchableOpacity onPress={() => {}}>
-//     <Icon name="delete" style={styles.DeleteIcon} />
-//   </TouchableOpacity>
-// </View>
-// </View>

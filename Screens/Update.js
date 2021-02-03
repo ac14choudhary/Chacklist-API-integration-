@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -8,9 +9,22 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import Home from './Home';
 
 export default function Update({navigation, route}) {
   const [update, setUdate] = useState(route.params);
+
+  const updateDetail = async (neww) => {
+    try {
+      await axios.patch('https://app-api-geny.herokuapp.com/products/update', {
+        uuid: uuid,
+        quantity: quantity,
+      });
+      navigation.navigate(Home);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
