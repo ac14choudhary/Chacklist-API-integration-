@@ -10,9 +10,12 @@ import {
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import axios from 'axios';
 import snackbar from 'react-native-snackbar';
+import {useIsFocused} from '@react-navigation/native';
 
 export default function Home({navigation}) {
   const [userData, setUserData] = useState([]);
+
+  const isFocused = useIsFocused();
 
   const fetchDetails = async () => {
     try {
@@ -28,7 +31,7 @@ export default function Home({navigation}) {
     navigation.addListener('focus', () => {
       fetchDetails();
     });
-  }, []);
+  }, [isFocused]);
 
   const deleteDetail = async (neww) => {
     console.log(neww);
@@ -40,7 +43,7 @@ export default function Home({navigation}) {
       })
       .then((res) => {
         console.log(res.data);
-        navigation.navigate(Home);
+        fetchDetails();
       })
       .catch((error) => {
         console.log(error);
@@ -51,19 +54,19 @@ export default function Home({navigation}) {
       duration: snackbar.LENGTH_LONG,
       text: 'Item Deleted',
     });
-    navigation.navigate(Home);
+    navigation.navigate('Home');
   };
 
-  const updateDetail = async () => {
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const updateDetail = async () => {
+  //   try {
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View>
+      <ScrollView>
         {userData.map((idee) => (
           <View key={idee.uuid}>
             <View style={styles.listElements}>
@@ -91,11 +94,11 @@ export default function Home({navigation}) {
                       'Are you sre you want to delete it ?',
                       [
                         {
-                          text: 'Cancel',
+                          text: 'NO',
                           onPress: () => {},
                           style: 'cancel',
                         },
-                        {text: 'OK', onPress: () => deleteDetail(idee.uuid)},
+                        {text: 'YES', onPress: () => deleteDetail(idee.uuid)},
                       ],
                     );
                   }}>
@@ -105,7 +108,7 @@ export default function Home({navigation}) {
             </View>
           </View>
         ))}
-      </View>
+      </ScrollView>
 
       <TouchableOpacity
         style={styles.FABADD}
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
 
   listElements: {
     width: '85%',
-    marginTop: 20,
+    marginVertical: 10,
     height: 75,
     backgroundColor: '#F2F2F2',
     borderRadius: 10,

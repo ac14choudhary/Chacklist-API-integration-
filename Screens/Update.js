@@ -1,26 +1,26 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import Home from './Home';
+import snackbar from 'react-native-snackbar';
 
 export default function Update({navigation, route}) {
   const [update, setUdate] = useState(route.params);
-
-  const updateDetail = async (neww) => {
+  const [value, setValue] = useState(0);
+  const updateDetail = async () => {
     try {
       await axios.patch('https://app-api-geny.herokuapp.com/products/update', {
         uuid: uuid,
-        quantity: quantity,
+        quantity: value,
       });
-      navigation.navigate(Home);
+      if (value) {
+        navigation.navigate('Home');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,13 +38,31 @@ export default function Update({navigation, route}) {
         keyboardType="default"></TextInput>
       <TextInput
         style={styles.input}
-        placeholder="Enter Quantity"
+        placeholder={String(update.quantity)}
         placeholderTextColor="#dddddd"
-        keyboardType="number-pad"></TextInput>
+        keyboardType="number-pad"
+        onChangeText={(text) => setValue(text)}></TextInput>
 
       <TouchableOpacity
         style={styles.updateButton}
-        onPress={() => navigation.navigate('Home')}>
+        onPress={() => {
+          if (value) {
+            navigation.navigate('Home');
+            snackbar.show({
+              backgroundColor: '#FFCA27',
+              textColor: 'black',
+              duration: snackbar.LENGTH_SHORT,
+              text: 'Quantity updated',
+            });
+          } else {
+            snackbar.show({
+              backgroundColor: '#ff6666',
+              textColor: 'white',
+              duration: snackbar.LENGTH_LONG,
+              text: 'please enter new Quantity',
+            });
+          }
+        }}>
         <Text style={styles.updateButtonText}>Update to List</Text>
       </TouchableOpacity>
     </View>

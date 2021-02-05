@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
   TextInput,
@@ -11,6 +9,7 @@ import {
 import snackbar from 'react-native-snackbar';
 import Home from './Home';
 import axios from 'axios';
+import Update from './Update';
 
 export default function Add({navigation}) {
   const [name, setName] = useState('');
@@ -64,7 +63,7 @@ export default function Add({navigation}) {
       <TouchableOpacity
         style={styles.addButton}
         onPress={() => {
-          sendToList();
+          sendToList(Update.name);
         }}>
         <Text style={styles.addButtonText}>Add to List</Text>
       </TouchableOpacity>
